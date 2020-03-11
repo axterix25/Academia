@@ -4,12 +4,6 @@
   box-sizing: border-box;
 }
 
-
-/*
-color claro: blanchedalmond
-color oscuro: black
-*/
-
 body {
   background-image: linear-gradient(to right top, #f6c899, #ffcbb7, #ffd3d5, #ffdfed, #faecfa, #eedfee, #e1d3e1, #d5c6d5, #c29eac, #ad787a, #8d5945, #614111);
   color: rgb(61, 41, 11);
