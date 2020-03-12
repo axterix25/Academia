@@ -90,8 +90,7 @@ insert into profesores values
 (null, 'Juan', 'Hernández Castillo', '1234', 'p'),
 (null, 'Adrian', 'Ojo de Águila', '1234', 'p'),
 (null, 'Julian', 'de la Guía Ortega', '1234', 'p'),
-(null, 'Agapito', 'Ruiz Jiménez', '1234', 'p'),
-(null, 'Marisol', 'González Gónzález', '1234', 'p');
+(null, 'Agapito', 'Ruiz Jiménez', '1234', 'p');
 
 insert into cursos values
 (null, 'informática basica','2020/01/01','2020/02/01'),
@@ -145,7 +144,7 @@ insert into profcur values
 (null,4,2),
 (null,5,6),
 (null,3,7),
-(null,7,5);
+(null,6,5);
 
 -- id, AlunmoId, CursoId
 insert into AlumnCur values

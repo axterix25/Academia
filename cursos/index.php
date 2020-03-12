@@ -51,6 +51,7 @@
         $profesorId=$_SESSION["usuarioId"];
         $profesor=$_SESSION["usuarioNombre"];
         $porProfesor=true;
+        
         if ($_GET) {
             if (isset($_GET["id"])) {
                 $alumnoId= $_GET["id"];
@@ -62,17 +63,17 @@
 
     if ($porProfesor && $porAlumno) {
         $consulta=qryCursosByProfesorAlumno($profesorId, $alumnoId);
-        $mensaje="Todos los cursos que imparte $profesor a $alumno";
+        $mensaje="Cursos que imparte $profesor a $alumno";
     } elseif ($porAlumno) {
         $consulta=qryCursosByAlumno($alumnoId);
-        $mensaje="Todos los cursos que recibe $alumno";
+        $mensaje="Cursos que recibe $alumno";
     } elseif ($porProfesor) {
         $consulta=qryCursosByProfesor($profesorId);
         $mensaje="Cursos que imparte $profesor";
     } else {
         $consulta=qryCursos();
         $showCounter=true;
-        $mensaje="Todos los cursos de la academia";
+        $mensaje="Cursos de la academia";
     }
    
     $resultado=mysqli_query($conexion, $consulta);
@@ -86,6 +87,7 @@
                     <th>Nombre</th>
                     <th>Fecha inicio</th>
                     <th>Fecha final</th>
+                    <th colspan="4"></th>
                 </tr>
 
                 <?php
@@ -103,12 +105,13 @@
             print"</td> 
             <td>$filas[2]</td>
             <td>$filas[3]</td>";
+            print "<td>";
             if ($_SESSION["usuarioRol"]=="d") {
-                print "<td><a href='delete.php?id=$filas[0]'>Borrar</a></td> 
-            <td><a href='editar.php?id=$filas[0]'>Editar</a></td>
-            <td><a class=\"addAlumno\" data-cursoId= \"$filas[0]\" data-curso= \"$filas[1]\" href=\"#\">Añadir alumno</a></td>";
+                print "<a href='delete.php?id=$filas[0]'>Borrar</a>
+                <a href='editar.php?id=$filas[0]'>Editar</a>
+                <a class=\"addAlumno\" data-cursoId= \"$filas[0]\" data-curso= \"$filas[1]\" href=\"#\">Añadir alumno</a>";
             }
-            print "<td><a href='../alumnos/?id=$filas[0]&curso=$filas[1]'>Ver alumnos</a></td></tr>";
+            print "<a href='../alumnos/?id=$filas[0]&curso=$filas[1]'>Ver alumnos</a></td></tr>";
         }
     }
     ?>

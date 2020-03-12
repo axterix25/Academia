@@ -37,6 +37,7 @@
                     <th>ID</th>
                     <th>Nombre</th>
                     <th>Apellidos</th>
+                    <th></th>
                 </tr>
 
                 <?php
@@ -46,14 +47,14 @@
             print"<tr> <td>$filas[0]</td> 
             <td>$filas[1]</td> 
             <td>$filas[2]</td>
-            <td><a href='delete.php?id=$filas[0]'>Borrar</a></td> 
-            <td><a href='editar.php?id=$filas[0]'>Editar</a></td>
-            <td><a href='../cursos/?idp=$filas[0]&profesor=$filas[1]'>Ver cursos</a></td>
-            <td><a href='../alumnos/?idp=$filas[0]&profesor=$filas[1]'>Ver alumnos</a></td>";
+            <td><a href='delete.php?id=$filas[0]'>Borrar</a> 
+            <a href='editar.php?id=$filas[0]'>Editar</a> 
+            <a href='../cursos/?idp=$filas[0]&profesor=$filas[1]'>Ver cursos</a> 
+            <a href='../alumnos/?idp=$filas[0]&profesor=$filas[1]'>Ver alumnos</a> ";
             if ($_SESSION["usuarioRol"]=="d") {
-                print"<td><a class='asignCurso' data-profesorId='$filas[0]' data-profesor='$filas[1]'href='#'>Asignar curso</a></td>";
+                print"<a class='asignCurso' data-profesorId='$filas[0]' data-profesor='$filas[1]'href='#'>Asignar curso</a>";
             }
-            print"</tr>";
+            print"</td></tr>";
         }
     }
     ?>

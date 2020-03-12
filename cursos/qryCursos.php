@@ -11,11 +11,11 @@ function qryCursosByProfesor($profesorId)
 
 function qryCursosByProfesorAlumno($profesorId, $alumnoId)
 {
-    return "select c.id, c.nombre , c.fecha_inicio, c.fecha_final from  alumncur ac 
-    inner join profcur pc on ac.cursoId = pc.cursoId
-    inner join alumnos a on ac.alumnoId =a.id
-    inner join profesores p on pc.profesorId =p.id
-    inner join cursos c on c.id =pc.id
+    return "select c.id, c.nombre , c.fecha_inicio, c.fecha_final from  cursos c 
+    inner join profcur pc on c.id = pc.cursoId 
+    inner join alumncur ac on c.id = ac.cursoId
+    inner join alumnos a on a.id = ac.alumnoId 
+    inner join profesores p on p.id = pc.profesorId
     where a.id=$alumnoId and pc.profesorId=$profesorId";
 }
 

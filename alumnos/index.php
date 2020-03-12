@@ -59,16 +59,16 @@ if ($_SESSION["usuarioRol"]=="p") {
 
 if ($porCurso && $porProfesor) {
     $consulta=qryAlumnosByProfesorCurso($profesorId, $cursoId);
-    $mensaje="Todos los alumnos de $curso impartido por $profesor";
+    $mensaje="Alumnos de $curso impartido por $profesor";
 } elseif ($porCurso) {
     $consulta=qryAlumnosByCurso($cursoId);
-    $mensaje="Todos los alumnos del curso de $curso";
+    $mensaje="Alumnos del curso de $curso";
 } elseif ($porProfesor) {
     $consulta=qryAlumnosByProfesor($profesorId);
     $mensaje="Alumnos de $profesor";
 } else {
     $consulta=qryAlumnos();
-    $mensaje="Todos alumnos de la academia";
+    $mensaje="Alumnos de la academia";
 }
 
     $resultado=mysqli_query($conexion, $consulta);
@@ -79,7 +79,7 @@ if ($porCurso && $porProfesor) {
                     <th>ID</th>
                     <th>Nombre</th>
                     <th>Apellidos</th>
-                    <th colspan="4"></th>
+                    <th></th>
                 </tr>
 
                 <?php
@@ -89,12 +89,13 @@ if ($porCurso && $porProfesor) {
             print"<tr> <td>$filas[0]</td> 
             <td>$filas[1]</td> 
             <td>$filas[2]</td>";
+            print "<td>";
             if ($_SESSION["usuarioRol"]=="d") {
-                print "<td><a href='delete.php?id=$filas[0]'>Borrar</a></td> 
-            <td><a href='editar.php?id=$filas[0]'>Editar</a></td>
-            <td><a class='asignCurso' data-alumnoId='$filas[0]' data-alumno='$filas[1] $filas[2]' href='#'>Asignar curso</a></td>";
+                print "<a href='delete.php?id=$filas[0]'>Borrar</a>
+                <a href='editar.php?id=$filas[0]'>Editar</a>
+                <a class='asignCurso' data-alumnoId='$filas[0]' data-alumno='$filas[1] $filas[2]' href='#'>Asignar curso</a>";
             }
-            print "<td><a href='../cursos/?id=$filas[0]&alumno=$filas[1] $filas[2]'>Ver cursos</a></td></tr>";
+            print "<a href='../cursos/?id=$filas[0]&alumno=$filas[1] $filas[2]'>Ver cursos</a></td></tr>";
         }
     }
     ?>
