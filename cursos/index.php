@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cursos</title>
     <link rel="stylesheet" href="../css/style.css?x=<?=time(); ?>">
+    <script src="https://kit.fontawesome.com/7a7bcf719b.js" crossorigin="anonymous"></script>
     <?php
     include "../database.php";
     include "qryCursos.php";
@@ -29,7 +30,8 @@
     $porAlumno=false;
     $porProfesor=false;
     $showCounter=false;
-
+    $param="";
+    $porParam=false;
 
     if ($_SESSION["usuarioRol"]=="d") {
         print '<a href="create.php">Nuevo curso</a>';
@@ -45,6 +47,10 @@
                 $profesor= $_GET["profesor"];
                 $porProfesor=true;
             }
+            if (isset($_GET['search'])) {
+                $param=$_GET['search'];
+                $porParam=true;
+            }
         }
     }
     if ($_SESSION["usuarioRol"]=="p") {
@@ -58,6 +64,10 @@
                 $alumno= $_GET["alumno"];
                 $porAlumno=true;
             }
+            if (isset($_GET['search'])) {
+                $param=$_GET['search'];
+                $porParam=true;
+            }
         }
     }
 
@@ -69,9 +79,17 @@
         $mensaje="Cursos que recibe $alumno";
     } elseif ($porProfesor) {
         $consulta=qryCursosByProfesor($profesorId);
+        if ($porParam) {
+            $consulta.=" and c.nombre like '%$param%'";
+        }
         $mensaje="Cursos que imparte $profesor";
     } else {
-        $consulta=qryCursos();
+        if ($porParam) {
+            $consulta=qryCursosWithParam($param);
+        } else {
+            $consulta=qryCursos();
+        }
+
         $showCounter=true;
         $mensaje="Cursos de la academia";
     }
@@ -80,7 +98,6 @@
 
 ?>
             <h2><?=$mensaje?></h2>
-            <p>Si visualizas un curso y no puedes ver los alumnos es porque dicho curso no tiene un profesor asignado. <a href="../profesores/">Ir a profesores</a></p>
             <table>
                 <tr>
                     <th>ID</th>
@@ -94,24 +111,28 @@
     $filas='';
     if ($resultado!='') {
         while ($filas=mysqli_fetch_row($resultado)) {
-            print"<tr> <td>$filas[0]</td> 
-            <td>$filas[1]";
-            
-            //muestra el nº de alumnos por clase
+            print"<tr><td>$filas[0]</td>";
+                        
+            //muestra el nº de alumnos por clase y muetras el link a status
             if ($showCounter) {
-                print "(<span class=\"counter\">$filas[4]</span>)";
+                print "<td><a href=\"status.php?id=$filas[0]\">$filas[1]</a>(<span class=\"counter\">$filas[4]</span>)</td>";
+            } else {
+                print "<td>$filas[1]</td>";
             }
             
-            print"</td> 
-            <td>$filas[2]</td>
+            print "<td>$filas[2]</td>
             <td>$filas[3]</td>";
             print "<td>";
             if ($_SESSION["usuarioRol"]=="d") {
-                print "<a href='delete.php?id=$filas[0]'>Borrar</a>
-                <a href='editar.php?id=$filas[0]'>Editar</a>
-                <a class=\"addAlumno\" data-cursoId= \"$filas[0]\" data-curso= \"$filas[1]\" href=\"#\">Añadir alumno</a>";
+                print "<a href='delete.php?id=$filas[0]'><i class=\"fas fa-trash-alt\"></i></a><a href='editar.php?id=$filas[0]'><i class=\"fas fa-edit\"></i></a><a class=\"addAlumno\" data-cursoId= \"$filas[0]\" data-curso= \"$filas[1]\" href=\"#\"><i class=\"fas fa-user-plus\"></i></a>";
             }
-            print "<a href='../alumnos/?id=$filas[0]&curso=$filas[1]'>Ver alumnos</a></td></tr>";
+
+            if ($filas[4]>0) {
+                print "<a href='../alumnos/?id=$filas[0]&curso=$filas[1]'><i class=\"fas fa-users\"></i></a></td>";
+            } else {
+                print "<a href='#'><i class=\"fas fa-users\"></i></a></td>";
+            }
+            print "</tr>";
         }
     }
     ?>
@@ -134,7 +155,7 @@
         <p>Asignación alumnos al curso de <span id="curso"></span></p>
         <p>Mostrando alumnos que no han realizado el curso, marca uno del desplegable y pulsa el botón
             de asignar</p>
-        <form action="addAlumnoToCurso.php" method="post">
+        <form action="addAlumnoToCurso.php" method="post" class="modal-form">
             <input type="hidden" name="cursoId" id="cursoId" value="">
             <select name="alumnos" id="alumnos">
                 <option value="0" disabled selected>Selecciona un alumno</option>

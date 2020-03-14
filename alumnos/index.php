@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alumnos</title>
     <link rel="stylesheet" href="../css/style.css?x=<?=time(); ?>">
+    <script src="https://kit.fontawesome.com/7a7bcf719b.js" crossorigin="anonymous"></script>
     <?php
     include "../database.php";
     include "qryAlumnos.php";
@@ -27,6 +28,8 @@
 $mensaje="";
 $porCurso=false;
 $porProfesor=false;
+$param="";
+$porParam=false;
 
 if ($_SESSION["usuarioRol"]=="d") {
     print '  <a href="create.php">Nuevo alumno</a>';
@@ -41,6 +44,10 @@ if ($_SESSION["usuarioRol"]=="d") {
             $profesor= $_GET["profesor"];
             $porProfesor=true;
         }
+        if (isset($_GET['search'])) {
+            $param=$_GET['search'];
+            $porParam=true;
+        }
     }
 }
 
@@ -54,6 +61,10 @@ if ($_SESSION["usuarioRol"]=="p") {
             $curso= $_GET["curso"];
             $porCurso=true;
         }
+        if (isset($_GET['search'])) {
+            $param=$_GET['search'];
+            $porParam=true;
+        }
     }
 }
 
@@ -65,9 +76,15 @@ if ($porCurso && $porProfesor) {
     $mensaje="Alumnos del curso de $curso";
 } elseif ($porProfesor) {
     $consulta=qryAlumnosByProfesor($profesorId);
+    if ($porParam) {
+        $consulta.=" and (a.nombre like '%$param%' or a.apellidos like '%$param%')";
+    }
     $mensaje="Alumnos de $profesor";
 } else {
     $consulta=qryAlumnos();
+    if ($porParam) {
+        $consulta.=" where nombre like '%$param%' or apellidos like '%$param%'";
+    }
     $mensaje="Alumnos de la academia";
 }
 
@@ -91,11 +108,9 @@ if ($porCurso && $porProfesor) {
             <td>$filas[2]</td>";
             print "<td>";
             if ($_SESSION["usuarioRol"]=="d") {
-                print "<a href='delete.php?id=$filas[0]'>Borrar</a>
-                <a href='editar.php?id=$filas[0]'>Editar</a>
-                <a class='asignCurso' data-alumnoId='$filas[0]' data-alumno='$filas[1] $filas[2]' href='#'>Asignar curso</a>";
+                print "<a href='delete.php?id=$filas[0]'><i class=\"fas fa-user-times\"></i></a><a href='editar.php?id=$filas[0]'><i class=\"fas fa-user-edit\"></i></a><a class=\"asignCurso\" data-alumnoId=\"$filas[0]\" data-alumno=\"$filas[1] $filas[2]\" href=\"#\"><i class=\"fas fa-plus\"></i></a>";
             }
-            print "<a href='../cursos/?id=$filas[0]&alumno=$filas[1] $filas[2]'>Ver cursos</a></td></tr>";
+            print "<a href=\"../cursos/?id=$filas[0]&alumno=$filas[1] $filas[2]\"><i class=\"fas fa-eye\"></i></a></td></tr>";
         }
     }
     ?>
@@ -117,7 +132,7 @@ if ($porCurso && $porProfesor) {
     <div class="modal-body">
         <p>Asignando un curso a <span id="alumno"></span></p>
         <p>Mostrando cursos que aún no ha realizado el alumno, marca uno del desplegable y pulsa el botón de asignar</p>
-        <form action="addCursoToAlumno.php" method="post">
+        <form action="addCursoToAlumno.php" method="post" class="modal-form">
             <input type="hidden" name="alumnoId" id="alumnoId" value="">
             <select name="cursos" id="cursos">
                 <option value="0" disabled selected>Selecciona un curso</option>

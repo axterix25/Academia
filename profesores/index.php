@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alumnos</title>
     <link rel="stylesheet" href="../css/style.css?x=<?=time(); ?>">
+    <script src="https://kit.fontawesome.com/7a7bcf719b.js" crossorigin="anonymous"></script>
     <?php
     include "../database.php";
     ?>
@@ -24,11 +25,20 @@
              if ($_SESSION["usuarioRol"]=="d") {
                  print '<a href="create.php">Nuevo profesor</a>';
              }
+
             $consulta="select * from profesores where tipo='p'";
+            
             if ($_SESSION["usuarioRol"]=="p") {
                 $consulta.=" and id=".$_SESSION["usuarioId"];
             }
             
+            if ($_GET) {
+                if (isset($_GET['search'])) {
+                    $param=$_GET['search'];
+                    $consulta.=" and nombre like '%$param%' or apellidos like '%$param%'";
+                }
+            }
+
             $resultado=mysqli_query($conexion, $consulta);
             ?>
             <h2>Lista de profesores</h2>
@@ -47,12 +57,9 @@
             print"<tr> <td>$filas[0]</td> 
             <td>$filas[1]</td> 
             <td>$filas[2]</td>
-            <td><a href='delete.php?id=$filas[0]'>Borrar</a> 
-            <a href='editar.php?id=$filas[0]'>Editar</a> 
-            <a href='../cursos/?idp=$filas[0]&profesor=$filas[1]'>Ver cursos</a> 
-            <a href='../alumnos/?idp=$filas[0]&profesor=$filas[1]'>Ver alumnos</a> ";
+            <td><a href='delete.php?id=$filas[0]'><i class=\"fas fa-trash-alt\"></i></a><a href='editar.php?id=$filas[0]'><i class=\"fas fa-edit\"></i></a><a href='../cursos/?idp=$filas[0]&profesor=$filas[1]'><i class=\"fas fa-eye\"></i></a><a href='../alumnos/?idp=$filas[0]&profesor=$filas[1]'><i class=\"fas fa-users\"></i></a>";
             if ($_SESSION["usuarioRol"]=="d") {
-                print"<a class='asignCurso' data-profesorId='$filas[0]' data-profesor='$filas[1]'href='#'>Asignar curso</a>";
+                print"<a class='asignCurso' data-profesorId='$filas[0]' data-profesor='$filas[1]'href='#'><i class=\"fas fa-user-graduate\"></i></a>";
             }
             print"</td></tr>";
         }
@@ -77,7 +84,7 @@
                 <p>Asignando un curso a <span id="profesor"></span></p>
                 <p>Mostrando cursos que no tienen aún profesores asginados, marca uno del desplegable y pulsa el botón
                     de asignar</p>
-                <form action="addCursoToProfesor.php" method="post">
+                <form action="addCursoToProfesor.php" method="post" class="modal-form">
                     <input type="hidden" name="profesorId" id="profesorId" value="">
                     <select name="cursos" id="cursos">
                         <option value="0" disabled selected>Selecciona un curso</option>

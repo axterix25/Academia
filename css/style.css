@@ -5,110 +5,144 @@
 }
 
 body {
-  /* background-image: linear-gradient(to right top, #f6c899, #ffcbb7, #ffd3d5, #ffdfed, #faecfa, #eedfee, #e1d3e1, #d5c6d5, #c29eac, #ad787a, #8d5945, #614111); */
+  /* background-image: url(../img/Page-BgTexture5.jpg); */
   color: rgb(61, 41, 11);
   font-family: monospace;
   font-size: 1em;
-  /* border: 2px solid black; */
 }
 
 header {
-  height: 15vh;
-}
-
-main>a:link,
-main>a:visited {
-  color: rgb(61, 41, 11);
-  ;
-  text-decoration: none;
-  height: 3em;
-  border: 1px solid white;
-  text-align: center;
-  line-height: 3em;
-  text-transform: uppercase;
-  padding-left: 4vw;
-  padding-right: 4vw;
-  font-size: 1rem;
-}
-
-a:hover {
-  background-color: rgb(150, 140, 126);
-  color: rgb(61, 41, 11);
+  margin-bottom: 2vh;
 }
 
 h1,
 h2 {
-  margin-top: 1.5em;
-  margin-bottom: 1.5rem;
-  margin-left: 1rem;
+  margin: 1.5vh 1vw;
 }
 
 h2 {
+  font-size: 1.2rem;
+}
+li{
+  padding: 1vh 2vw;
+  border: 1px solid rgb(61, 41, 11);
+  margin: 1vh 1vw;
+  list-style-type: none;
+}
+li i{
+  margin-right: 1vw;
+  color: brown;
   font-size: 2rem;
 }
-
 .web {
   margin: 0 auto;
-  width: 80%;
-  /* padding: 0 2rem; */
+  padding: .1vh .1vw;
+  max-width: 1200px;
+  /* background-image: linear-gradient(to right top, #f6c899, #ffcbb7, #ffd3d5, #ffdfed, #faecfa, #eedfee, #e1d3e1, #d5c6d5, #ad787a, #8d5945, #614111); */
+  background-color: #fff;
 }
 
 nav {
-  margin: 2vh 0;
+  padding: 1vh 0;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
+  align-items: center;
 }
 
 nav a:link,
 nav a:visited {
-  height: 3em;
   border-radius: 5px;
   border: 1px solid rgb(61, 41, 11);
-  color: rgb(61, 41, 11);
+  color: rgb(222, 184, 135);
   text-decoration: none;
   text-align: center;
-  line-height: 3em;
   text-transform: uppercase;
-  padding-left: 4vw;
-  padding-right: 4vw;
+  padding: 1vh 2vw;
   font-size: 1rem;
+  background-color: rgb(29, 112, 20);
 }
 
-nav a:hover {
-  background-color: rgb(222, 184, 135);
-  color: rgb(61, 41, 11);
+nav a:hover,
+nav a:active {
+  background-color: rgb(61, 41, 11);
+  color: rgb(222, 184, 135);
+  transform: translateY(1px);
+  filter: saturate(150%);
 }
 
-.searchForm {
-  /* padding: .3rem;
-  margin: 1.5vh auto 0; */
-  text-align: center;
+nav .searchForm {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
 }
 
-.searchForm input {
+nav .searchForm input {
   outline: none;
-  border: 1px solid rgb(150, 140, 126);
-  width: 50%;
-  padding: 1vh 1vw;
   border-radius: 5px;
-  /* background: rgb(222, 184, 135); */
-  margin-bottom: .5vh;
-  font-size: 1rem;
-  height: 2rem;
+  border: 1px solid rgb(150, 140, 126);
+  padding: 1vh 1vw;
+  font-size: .8rem;
+}
+
+nav .searchForm button {
+  border: solid 1px transparent;
+  border-radius: 5px;
+  /* size comes from text & padding (no width/height) */
+  padding: 1vh 1vw;
+  margin-left: 1vw;
+  background-color: rgb(29, 112, 20);
+  color: rgb(222, 184, 135);
+}
+
+nav .searchForm button:active {
+  transform: translateY(1px);
+  filter: saturate(150%);
+}
+
+nav .searchForm button:hover {
+  transform: translateY(1px);
+  filter: saturate(150%);
 }
 
 main {
   margin-bottom: 10vh;
-  min-height: 70vh;
+}
+
+main p {
+  margin: 1.5vh 1vw;
+}
+
+main>a:link,
+main>a:visited {
+  color: rgb(222, 184, 135);
+  background-color: rgb(29, 112, 20);
+  text-decoration: none;
+  height: 3em;
+  border: 1px solid rgb(222, 184, 135);
+  text-align: center;
+  line-height: 3em;
+  text-transform: uppercase;
+  padding: 1vh 2vw;
+  font-size: 1rem;
+  border-radius: 5px;
+  margin-left: 1vw;
+}
+
+main>a:hover,
+main>a:active {
+  color: rgb(222, 184, 135);
+  background-color: rgb(61, 41, 11);
+  transform: translateY(1px);
+  filter: saturate(150%);
 }
 
 main>form {
-
   width: 600px;
   font-family: monospace;
-  margin: 0 auto;
-  border: 1px solid black;
+  margin: 10vh auto 0;
+  border: 2px solid rgb(61, 41, 11);;
   padding: 1rem;
+  border-radius: 5px;
 }
 
 fieldset {
@@ -116,7 +150,7 @@ fieldset {
 }
 
 p {
-  margin: 1rem 0;
+  margin: 1.5vh 0;
 
 }
 
@@ -124,45 +158,42 @@ legend {
   margin: 30px;
 }
 
-input[type="text"],
-select {
-  font-family: monospace;
-  margin-bottom: 1rem;
+main input[type="text"],
+main input[type="password"],
+main input[type="date"],
+main select {
+
+  margin-bottom: 1rem; 
+  outline: none;
+  border-radius: 5px;
+  border: 1px solid rgb(150, 140, 126);
+  padding: .5vh 1vw;
+  font-size: .8rem;
 }
 
-input[type="radio"],
-select {
+main input[type="radio"],
+main select {
   margin-left: 30px;
   margin-bottom: 1rem;
 }
 
 input[type="submit"],
-button,
-.btn,
 input[type="reset"] {
   border: solid 1px transparent;
   border-radius: 4px;
-
-  /* size comes from text & padding (no width/height) */
   padding: 0.5em 1em;
   margin: 10px 30px;
-
   background-color: rgb(61, 41, 11);
   color: #fff;
 }
 
-
 input[type="submit"]:active,
-button:active,
-.btn:active,
 input[type="reset"]:active {
   transform: translateY(1px);
   filter: saturate(150%);
 }
 
 input[type="submit"]:hover,
-button:hover,
-.btn:hover,
 input[type="reset"]:hover {
   transform: translateY(1px);
   filter: saturate(150%);
@@ -201,41 +232,45 @@ td {
 table,
 th,
 td {
-  /* border: 1px solid rgb(61, 41, 11); */
   padding: 1.2vh .3vw;
   text-align: center;
 }
 
 td a:link,
 td a:visited {
-  border: 1px solid rgb(223, 169, 98);
-  background-color: rgb(61, 41, 11);
-  border-radius: 5px;
-  color: rgb(223, 169, 98);
-  padding: .5vh 1vw;
+  color: rgb(61, 41, 11);
+  padding: 1vh 1vw;
   text-decoration: none;
+  margin-left: .5vw;
 }
 
-td a:hover {
-  background-color: rgb(223, 169, 98);
-  border: 1px solid rgb(61, 41, 11);
-  color: rgb(61, 41, 11);
+td a:hover, td a:active {
+  color: rgb(223, 169, 98);
   transform: translateY(1px);
   filter: saturate(150%);
 }
 
+tr {
+  border-bottom: 1px solid rgb(61, 41, 11);
+}
+
 tr:nth-child(odd) {
-  background-color: burlywood;
+  background-color: rgb(247, 244, 240);
 }
 
 tr:nth-child(even) {
-  background-color: rgb(223, 169, 98);
+  background-color: rgb(255, 255, 255);
 }
 
 tr:nth-child(1) {
-  background-color: rgb(61, 41, 11);
+  background-color: rgb(29, 112, 20);
   color: burlywood;
 }
+
+.status-panel{
+  font-size: 1rem;
+}
+
 
 /* The Modal (background) */
 .modal {
@@ -325,6 +360,44 @@ tr:nth-child(1) {
 .modal-body {
   padding: 2px 16px;
 }
+
+.modal-form> input[type="text"],
+.modal-form> input[type="password"],
+.modal-form> input[type="date"],
+.modal-form> select {
+  margin-bottom: 1rem; 
+  outline: none;
+  border-radius: 5px;
+  border: 1px solid rgb(150, 140, 126);
+  padding: .5vh 1vw;
+  font-size: .8rem;
+}
+
+.modal-form> input[type="submit"],
+.modal-form> input[type="reset"],
+.modal-form> button {
+  border: solid 1px transparent;
+  border-radius: 4px;
+  padding: 0.5em 1em;
+  margin: 10px 30px;
+  background-color: rgb(61, 41, 11);
+  color: #fff;
+}
+
+.modal-form> input[type="submit"]:active,
+.modal-form> input[type="reset"]:active,
+.modal-form> button:active {
+  transform: translateY(1px);
+  filter: saturate(150%);
+}
+
+.modal-form> input[type="submit"]:hover,
+.modal-form> input[type="reset"]:hover,
+.modal-form> button:hover {
+  transform: translateY(1px);
+  filter: saturate(150%);
+}
+
 
 .modal-footer {
   padding: 2px 16px;

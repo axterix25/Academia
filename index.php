@@ -26,7 +26,6 @@
 <body>
     <div class="web">
         <header>
-            <h1>Visita Formater</h1>
         </header>
         <main>
             <form action="" method="post">
