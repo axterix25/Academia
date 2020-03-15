@@ -1,4 +1,5 @@
 <?php
+include "tools.php";
 
 if (isset($_POST['action']) && !empty($_POST['action'])) {
     $action = $_POST['action'];
@@ -47,8 +48,10 @@ function addCursoToProfesor($cursoId, $profesorId)
     $conexion=mysqli_connect('localhost', 'root', '', 'academia');
 
     if (mysqli_query($conexion, $consulta)) {
+        WriteLog('INSERT', 'profCur', "$profesorId-$cursoId");
         echo "Se ha dado de alta al profesor en el curso solicitado";
     } else {
+        WriteLog('INSERT', 'profCur', "$profesorId-$cursoId Error: ". mysqli_errno($conexion));
         echo "Se ha producido un error: ". mysqli_errno($conexion);
     }
 }
@@ -76,11 +79,14 @@ function addCursoToAlumno($cursoId, $alumnoId)
     $conexion=mysqli_connect('localhost', 'root', '', 'academia');
 
     if (mysqli_query($conexion, $consulta)) {
+        WriteLog('INSERT', 'alumncur', "$alumnoId-$cursoId");
         echo "OK";
     } else {
         if (mysqli_errno($conexion)==1062) {
+            WriteLog('INSERT', 'alumncur', "$alumnoId-$cursoId Error: Este alumno ya había sido inscrito en el curso anteriormente");
             echo "Este alumno ya había sido inscrito en el curso anteriormente";
         } else {
+            WriteLog('INSERT', 'alumncur', "$alumnoId-$cursoId Error: ". mysqli_errno($conexion));
             echo "Se ha producido un error: ". mysqli_errno($conexion);
         }
     }

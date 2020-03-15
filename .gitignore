@@ -1,2 +1,2 @@
 *.txt
-\sql\*.sql
+sql\s*.sql

@@ -127,7 +127,7 @@
                 print "<a href='delete.php?id=$filas[0]'><i class=\"fas fa-trash-alt\"></i></a><a href='editar.php?id=$filas[0]'><i class=\"fas fa-edit\"></i></a><a class=\"addAlumno\" data-cursoId= \"$filas[0]\" data-curso= \"$filas[1]\" href=\"#\"><i class=\"fas fa-user-plus\"></i></a>";
             }
 
-            if ($filas[4]>0) {
+            if (isset($filas[4]) && $filas[4]>0) {
                 print "<a href='../alumnos/?id=$filas[0]&curso=$filas[1]'><i class=\"fas fa-users\"></i></a></td>";
             } else {
                 print "<a href='#'><i class=\"fas fa-users\"></i></a></td>";
@@ -149,7 +149,7 @@
 <div class="modal-content">
     <div class="modal-header">
         <span class="close">&times;</span>
-        <h2>Asignación de Cursos a alunos</h2>
+        <h2>Asignación de Cursos a alumnos</h2>
     </div>
     <div class="modal-body">
         <p>Asignación alumnos al curso de <span id="curso"></span></p>

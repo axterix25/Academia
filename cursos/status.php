@@ -57,7 +57,18 @@
                 $firstrow = mysqli_fetch_assoc($resultado);
 
                 $curso =$firstrow["curso"];
-                $profesor=$firstrow["profesor"] == null? "Sin asignar": $firstrow["profesor"];
+                
+                $profesor=$firstrow["profesor"];
+                $profesorId= $firstrow["profesorId"];
+                $profesorLink="";
+                
+                if ($profesor==null) {
+                    $profesor="Sin asignar";
+                    $profesorLink="<a href=\"changestatus.php?cId=$cursoId\"><i class=\"fas fa-user-plus\"></i></a>";
+                } else {
+                    $profesorCursoId=$firstrow["profesorCursoId"];
+                    $profesorLink="<a href=\"changestatus.php?cId=$cursoId&pcId=$profesorCursoId\"><i class=\"fas fa-user-minus\"></i></a>";
+                }
                 $status= $firstrow["status"];
                 $f_inicio=$firstrow["fecha_inicio"];
                 $f_fin=$firstrow["fecha_final"];
@@ -79,22 +90,26 @@
                             <h2>Nombre del curso: <?=$curso?></h2>
                             <p>Fecha de inicio: <strong><?=$f_inicio?></strong></p>
                             <p>Fecha de finalización: <strong><?=$f_fin?></strong></p>
-                            <p>Profesor: <strong><?=$profesor?></strong></p>
+                            <p>Profesor: <strong><?=$profesor?></strong> <?=$profesorLink?></p>
                             <p>Status: <?=$status?></p>
                         </li>
                         <li>
-                            <h2>Núm alumnos: <?=$num_alumnos?></h2>
+                            <h2>Núm alumnos: <?=$num_alumnos?></h2>            
                             <?php
                             if ($num_alumnos>0) {
                                 while ($filas=mysqli_fetch_assoc($resultado)) {
-                                    $alumnoId=$filas["alumnoId"];
+                                    $alumnoCursoId=$filas["alumnoCursoId"];
                                     $alumno=$filas["alumno"];
-                                    print "<p> $alumnoId $alumno</p>";
+                                    print "<p>$alumnoCursoId $alumno <a href=\"changestatus.php?cId=$cursoId&acId=$alumnoCursoId\"><i class=\"fas fa-user-minus\"></i></a></p>";
                                 }
                             } else {
                                 print "<p>Este curso no tiene alumnos apuntados</p>";
                             }
                         ?>
+                        </li>
+                        <li>
+                            <hr>
+                        <p><strong>Para agregar un alumno al curso haz click</strong> <a href="index.php?idp=<?=$profesorId?>&profesor=<?=$profesor?>"><i class="fas fa-user-plus"></i></a></p>
                         </li>
                     </ul>
                 </div>

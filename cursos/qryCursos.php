@@ -37,9 +37,9 @@ function qryCursosByAlumno($alumnoId)
 
 function qryCursosStatus($cursoId)
 {
-    return "select c.id as cursoId, c.nombre as curso, c.fecha_inicio, c.fecha_final, 
+    return "select ac.id as alumnoCursoId, c.id as cursoId, c.nombre as curso, c.fecha_inicio, c.fecha_final, 
     if(curdate() between c.fecha_inicio and c.fecha_final, 'En curso',if (c.fecha_final < curdate(),'Terminado','Sin empezar')) as status,
-    a.id as alumnoId, concat(a.nombre , ' ', a.apellidos ) as alumno, p.id as profesorId, concat(p.nombre , ' ', p.apellidos ) as profesor
+    concat(a.nombre , ' ', a.apellidos ) as alumno, pc.id as profesorCursoId, concat(p.nombre , ' ', p.apellidos ) as profesor, p.id as profesorId
     from cursos c 
     left join profcur pc on c.id = pc.cursoId 
     left join alumncur ac on c.id = ac.cursoId
