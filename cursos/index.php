@@ -124,14 +124,16 @@
             <td>$filas[3]</td>";
             print "<td>";
             if ($_SESSION["usuarioRol"]=="d") {
-                print "<a href='delete.php?id=$filas[0]'><i class=\"fas fa-trash-alt\"></i></a><a href='editar.php?id=$filas[0]'><i class=\"fas fa-edit\"></i></a><a class=\"addAlumno\" data-cursoId= \"$filas[0]\" data-curso= \"$filas[1]\" href=\"#\"><i class=\"fas fa-user-plus\"></i></a>";
+                print "<a href='delete.php?id=$filas[0]'><i class=\"fas fa-trash-alt\"></i></a>
+                <a href='editar.php?id=$filas[0]'><i class=\"fas fa-edit\"></i></a>
+                <a class=\"addAlumno\" data-cursoId= \"$filas[0]\" data-curso= \"$filas[1]\" href=\"#\"><i class=\"fas fa-user-plus\"></i></a>";
             }
 
-            if (isset($filas[4]) && $filas[4]>0) {
-                print "<a href='../alumnos/?id=$filas[0]&curso=$filas[1]'><i class=\"fas fa-users\"></i></a></td>";
-            } else {
-                print "<a href='#'><i class=\"fas fa-users\"></i></a></td>";
-            }
+            //    if (isset($filas[4]) && $filas[4]>0) {
+            print "<a href='../alumnos/?id=$filas[0]&curso=$filas[1]'><i class=\"fas fa-users\"></i></a></td>";
+            //     } else {
+            //         print "<a href='#'><i class=\"fas fa-users\"></i></a></td>";
+            //     }
             print "</tr>";
         }
     }

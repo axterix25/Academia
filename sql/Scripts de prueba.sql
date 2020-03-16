@@ -1,3 +1,5 @@
+
+/*
 select id, concat(nombre, " ", apellidos) as nombre from alumnos where id not in(
 select ac.alumnoId from cursos c inner join alumncur ac on c.id = ac.cursoId where c.id =1);  
 
@@ -44,4 +46,21 @@ left join profesores p on p.id = pc.profesorId;
     inner join alumncur ac on c.id = ac.cursoId
     inner join alumnos a on a.id =ac.alumnoId  
     where c.id=12;
-    
+    */
+   
+
+/*Redes*/
+  select * from alumncur where id in(3,5,15);
+  select * from profcur where id= 2;
+  select * from cursos where id= 3;
+  
+ 
+   select ac.id as alumnoCursoId, c.nombre as curso, c.fecha_inicio, c.fecha_final, 
+    if(curdate() between c.fecha_inicio and c.fecha_final, 'En curso',if (c.fecha_final < curdate(),'Terminado','Sin empezar')) as status,
+    concat(a.nombre , ' ', a.apellidos ) as alumno, pc.id as profesorCursoId, concat(p.nombre , ' ', p.apellidos ) as profesor
+    from cursos c 
+    left join profcur pc on c.id = pc.cursoId 
+    left join alumncur ac on c.id = ac.cursoId
+    left join alumnos a on a.id = ac.alumnoId 
+    left join profesores p on p.id = pc.profesorId
+    where c.id=3;
